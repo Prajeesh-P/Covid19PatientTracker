@@ -22,7 +22,6 @@ ChartJS.register(
 );
 
 const LineChart = ({ displayData, selectedState }) => {
-  // Sample data
   const data = {
     labels: ["Active", "Confirmed", "Recovered", "Deaths"],
     datasets: [

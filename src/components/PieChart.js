@@ -1,14 +1,11 @@
-// src/components/MyPieChart.js
 
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 
-// Register the necessary components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = ({displayData,selectedState}) => {
-  // Sample data for the pie chart
   const data = {
     labels: ['Active','Confirmed', 'Recovered', 'Deaths'],
     datasets: [
@@ -26,7 +23,7 @@ const PieChart = ({displayData,selectedState}) => {
             selectedState?.confirmed,
             selectedState?.recovered,
             selectedState?.deaths,
-          ], // Replace with your actual data
+          ],
         backgroundColor: [
           'rgba(255, 99, 132, 0.6)',
           'rgba(54, 162, 235, 0.6)',

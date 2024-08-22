@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./index.css";
 import { useEffect, useState } from "react";
 import Cards from "./components/Cards";
@@ -22,17 +21,11 @@ function App() {
       "https://api.rootnet.in/covid19-in/unofficial/covid19india.org/statewise"
     );
     const jsonData = await apiData.json();
-    console.log(jsonData, data?.length);
 
     setData(jsonData);
   }
 
-  useEffect(() => {
-    console.log(data === null ? "Data is null" : "Data is not null");
-  }, [data]);
-
-  if (data === null) return <Shimmer />;
-  return (
+  return  data === null ? <Shimmer /> :(
     <div className="App">
       <div className="container">
         <div className="heading">

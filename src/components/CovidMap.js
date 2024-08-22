@@ -10,7 +10,6 @@ const covidData = {
         lat: 20.5937,
         lng: 78.9629
     },
-    // Add more countries or regions as needed
 };
 
 const CovidMap = ({displayData,selectedState}) => {
@@ -26,10 +25,10 @@ const CovidMap = ({displayData,selectedState}) => {
             center={[20.5937, 78.9629]} 
             zoom={4} 
             style={{ height: "700px", width: "100%" }} 
-            scrollWheelZoom={false}  // Disable zooming with scroll wheel
-            doubleClickZoom={false}  // Disable zooming with double click
-            zoomControl={false}      // Disable zoom controls
-            dragging={false}         // Disable dragging (optional)
+            scrollWheelZoom={false}  
+            doubleClickZoom={false}  
+            zoomControl={false}      
+            dragging={false}         
         >
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
