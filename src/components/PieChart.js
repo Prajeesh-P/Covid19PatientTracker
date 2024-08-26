@@ -2,23 +2,27 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { useSelector } from "react-redux";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieChart = ({displayData,selectedState}) => {
+const PieChart = () => {
+  const selectedState = useSelector((state) => state.covid.selectedState);
+  const reduxData = useSelector((state) => state.covid.data);
+
   const data = {
-    labels: ['Active','Confirmed', 'Recovered', 'Deaths'],
+    labels: ['Active', 'Confirmed', 'Recovered', 'Deaths'],
     datasets: [
       {
         label: 'COVID-19 Statistics',
-        data: selectedState?.length === 0
-        ? [
-            displayData?.data?.total?.active,
-            displayData?.data?.total?.confirmed,
-            displayData?.data?.total?.recovered,
-            displayData?.data?.total?.deaths,
+        data: selectedState === null
+          ? [
+            reduxData?.data?.total?.active,
+            reduxData?.data?.total?.confirmed,
+            reduxData?.data?.total?.recovered,
+            reduxData?.data?.total?.deaths,
           ]
-        : [
+          : [
             selectedState?.active,
             selectedState?.confirmed,
             selectedState?.recovered,
@@ -29,7 +33,7 @@ const PieChart = ({displayData,selectedState}) => {
           'rgba(54, 162, 235, 0.6)',
           'rgba(255, 206, 86, 0.6)',
           'rgba(0, 100, 0, 1)'
-          
+
         ],
         borderColor: [
           'rgba(255, 99, 132, 1)',

@@ -1,36 +1,34 @@
 import React, { useState } from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import { useDispatch,useSelector } from "react-redux";
+import { setSelectedState } from "../redux/covidSlice";
 
-const states = [
-  { label: "California" },
-  { label: "Texas" },
-  { label: "New York" },
-  { label: "Florida" },
-  // Add more states here
-];
 
-function SearchComponent({ data, setSelectedState }) {
+function SearchComponent() {
   const [stateSelected, setStateSelected] = useState(null);
-  const statesList = data?.data?.statewise || []; // Ensure statesList is an array
+  const reduxData = useSelector((state) => state.covid.data);
+  const statesList = reduxData?.data?.statewise || []; 
+  const dispatch = useDispatch();
 
   const handleStateChange = (event, newValue) => {
     setStateSelected(newValue);
   };
 
   const handleFilterClick = () => {
-    const matchedState = data?.data?.statewise?.find((ele) =>
-      ele?.state?.trim().replace(/\s+/g, '').toLowerCase() === stateSelected?.state?.trim().replace(/\s+/g, '').toLowerCase()
+    const matchedState = statesList.find((ele) =>
+      ele?.state?.trim().replace(/\s+/g, "").toLowerCase() ===
+      stateSelected?.state?.trim().replace(/\s+/g, "").toLowerCase()
     );
-    
+
     if (matchedState) {
-      setSelectedState(matchedState);
+      dispatch(setSelectedState(matchedState));
     }
   };
 
   const handleClearClick = () => {
-    setSelectedState([]);
-    setStateSelected(null); // Clear the selected state
+    dispatch(setSelectedState(null)); 
+    setStateSelected(null);
   };
 
   return (
@@ -38,7 +36,7 @@ function SearchComponent({ data, setSelectedState }) {
       <Autocomplete
         options={statesList}
         getOptionLabel={(option) => option.state}
-        value={stateSelected} // Set the value prop to the selected state
+        value={stateSelected} 
         onChange={handleStateChange}
         renderInput={(params) => (
           <TextField
@@ -53,10 +51,10 @@ function SearchComponent({ data, setSelectedState }) {
           borderRadius: "5px",
           width: "300px",
           "& .MuiAutocomplete-inputRoot": {
-            minWidth: "auto", // Input width
+            minWidth: "auto", 
           },
           "& .MuiAutocomplete-listbox": {
-            minWidth: "auto", // Dropdown width
+            minWidth: "auto", 
           },
         }}
       />

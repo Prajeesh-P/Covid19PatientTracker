@@ -1,24 +1,27 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 
-function Cards({ displayData,selectedState }) {
-  
-  return selectedState?.length === 0 ? (
+function Cards() {
+  const reduxData = useSelector((state) => state.covid.data);
+  const selectedState = useSelector((state) => state.covid.selectedState);
+
+  return selectedState === null ? (
     <div class="flex-container">
       <div className="card">
         <h5>Active</h5>
-        <h6>{displayData?.data?.total?.active}</h6>
+        <h6>{reduxData?.data?.total?.active}</h6>
       </div>
       <div className="card">
         <h5>Confirmed</h5>
-        <h6>{displayData?.data?.total?.confirmed}</h6>
+        <h6>{reduxData?.data?.total?.confirmed}</h6>
       </div>
       <div className="card">
         <h5>Recovered</h5>
-        <h6>{displayData?.data?.total?.recovered}</h6>
+        <h6>{reduxData?.data?.total?.recovered}</h6>
       </div>
       <div className="card">
         <h5>Deaths</h5>
-        <h6>{displayData?.data?.total?.deaths}</h6>
+        <h6>{reduxData?.data?.total?.deaths}</h6>
       </div>
     </div>
   ):
@@ -26,7 +29,7 @@ function Cards({ displayData,selectedState }) {
     <div class="flex-container">
       <div className="card">
         <h5>Active State</h5>
-        <h6>{selectedState.active}</h6>
+        <h6>{selectedState?.active}</h6>
       </div>
       <div className="card">
         <h5>Confirmed</h5>

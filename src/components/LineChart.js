@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useSelector } from "react-redux";
 
 
 ChartJS.register(
@@ -21,26 +22,29 @@ ChartJS.register(
   Legend
 );
 
-const LineChart = ({ displayData, selectedState }) => {
+const LineChart = () => {
+  const reduxData = useSelector((state) => state.covid.data);
+  console.log(reduxData);
+  const selectedState = useSelector((state) => state.covid.selectedState);
   const data = {
     labels: ["Active", "Confirmed", "Recovered", "Deaths"],
     datasets: [
       {
         label: "Covid Cases",
         data:
-          selectedState?.length === 0
+          selectedState === null
             ? [
-                displayData?.data?.total?.active,
-                displayData?.data?.total?.confirmed,
-                displayData?.data?.total?.recovered,
-                displayData?.data?.total?.deaths,
-              ]
+              reduxData?.data?.total?.active,
+              reduxData?.data?.total?.confirmed,
+              reduxData?.data?.total?.recovered,
+              reduxData?.data?.total?.deaths,
+            ]
             : [
-                selectedState?.active,
-                selectedState?.confirmed,
-                selectedState?.recovered,
-                selectedState?.deaths,
-              ],
+              selectedState?.active,
+              selectedState?.confirmed,
+              selectedState?.recovered,
+              selectedState?.deaths,
+            ],
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,
@@ -50,7 +54,7 @@ const LineChart = ({ displayData, selectedState }) => {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, 
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top",
